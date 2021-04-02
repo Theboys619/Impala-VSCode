@@ -1,0 +1,144 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Impala",
+	"patterns": [
+		{
+			"include": "#import"
+		},
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#numbers"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#identifiers"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.imp",
+					"match": "\\b(import|from|if|else|loop|send)\\b"
+				},
+				{
+					"name": "keyword.other.imp",
+					"match": "\\b(oftype)\\b"
+				},
+				{
+					"name": "support.type.imp",
+					"match": "\\b(function|object|array|string|number|nothing)\\b"
+				},
+				{
+					"name": "keyword.operator.imp",
+					"match": "(==|=|!=|\\+=|\\-=|\\\\=|\\\\%=|\\*=|\\+\\+|\\-\\-|\\&\\&|\\-|\\+|\\*|\\\/|\\%)"
+				}
+			]
+		},
+		"import": {
+			"patterns": [
+				{
+					"match": "(import ([_@#a-zA-Z][a-zA-Z#_@0-9]*) from *)",
+					"captures": {
+						"1": {
+							"patterns": [
+								{ "include": "#keywords" },
+								{ "include": "#strings" },
+								{
+									"name": "variable.name.imp",
+									"match": "[_@#a-zA-Z][a-zA-Z#_@0-9]*"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		"identifiers": {
+			"patterns": [
+				{
+					"match": "(make) ([_@#a-zA-Z][a-zA-Z#_@0-9]*) *\\((.*?)\\)",
+					"captures": {
+						"1": {
+							"name": "keyword.other.imp"
+						},
+						"2": {
+							"name": "support.function.imp"
+						},
+						"3": {
+							"patterns": [
+								{
+									"include": "#keywords"
+								},
+								{
+									"include": "#strings"
+								},
+								{
+									"include": "#numbers"
+								},
+								{
+									"include": "#comments"
+								},
+								{
+									"name": "variable.name.imp",
+									"match": "[_@#a-zA-Z][a-zA-Z#_@0-9]*"
+								}
+							]
+						}
+					}
+				},
+				{
+					"match": "([_@#a-zA-Z][a-zA-Z#@0-9]*) *\\(",
+					"captures": {
+						"1": {
+							"name": "support.function.imp"
+						}
+					}
+				},
+				{
+					"name": "variable.imp",
+					"match": "(make) ([_@#a-zA-Z][a-zA-Z#@_0-9]*)",
+					"captures": {
+						"1": {
+							"name": "keyword.other.imp"
+						},
+						"2": {
+							"name": "variable.name.imp"
+						}
+					}
+				}
+			]
+		},
+		"strings": {
+			"name": "string.quoted.double.imp",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.imp",
+					"match": "\\\\."
+				},
+				{
+					"name": "constant.character.escape.imp",
+					"match": "\\\\(033|n|r|t|U|u|x[a-z0-9A-Z]{0,2})"
+				}
+			]
+		},
+		"numbers": {
+			"name": "constant.numeric.imp",
+			"match": "\\d+(\\.\\d+)?"
+		},
+		"comments": {
+			"name": "comment.imp",
+			"match": "\\$.*$"
+		}
+	},
+	"scopeName": "source.imp"
+}

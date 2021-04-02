@@ -1,0 +1,25 @@
+{
+    "name": "impala",
+    "displayName": "Impala",
+    "description": "A extension for the language Impala",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.55.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "imp",
+            "aliases": ["Impala", "imp"],
+            "extensions": [".imp",".impala"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "imp",
+            "scopeName": "source.imp",
+            "path": "./syntaxes/imp.tmLanguage.json"
+        }]
+    }
+}
